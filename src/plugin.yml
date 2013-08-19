@@ -1,0 +1,17 @@
+name: npspawner
+main: cljminecraft.ClojurePlugin
+version: 1.0.0
+website: http://github.com/ddeaguiar/npspawner
+author: ddeaguiar
+description: FixMe
+depend: [cljminecraft]
+#unneeded: class-loader-of: cljminecraft
+commands:
+  npspawner.random:
+    description: Random dice roll
+    permission: npspawner.random
+    usage: /<command>
+permissions:
+  npspawner.dosomething:
+    description: Does something, I'm sure
+    default: op
