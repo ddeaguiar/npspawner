@@ -3,13 +3,13 @@ main: cljminecraft.ClojurePlugin
 version: 1.0.0
 website: http://github.com/ddeaguiar/npspawner
 author: ddeaguiar
-description: FixMe
+description: Quick Nether Portal skeleton creator
 depend: [cljminecraft]
 #unneeded: class-loader-of: cljminecraft
 commands:
-  npspawner.random:
-    description: Random dice roll
-    permission: npspawner.random
+  npspawner.nether-portal:
+    description: Creates the skeleton of a Nether Portal
+    permission: npspawner.nether-portal
     usage: /<command>
 permissions:
   npspawner.dosomething:

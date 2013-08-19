@@ -1,15 +1,12 @@
 # npspawner
 
-npspawner - Another awesome cljminecraft plugin
+npspawner - A cljminecraft plugin
 
-FIXME: write description
-
-## Usage
-
-FIXME: write
+Provides players with the capability to
+quickly create the skeleton of a Nether Portal.
 
 ## License
 
-Copyright (C) 2013 FIXME
+Copyright (C) 2013 Daniel De Aguiar
 
 Distributed under the Eclipse Public License, the same as Clojure.

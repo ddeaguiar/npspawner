@@ -1,3 +1,1 @@
-diceroll.enabled: true
-diceroll.string: You have thrown an %s!
-signplace.string: You placed a %s sign!
+netherportal.string: Created a Nether Portal for %s!

@@ -14,26 +14,36 @@
 
 (defonce plugin (atom nil))
 
-(defn random-command
-  [sender]
-  {:msg (format (cfg/get-string @plugin "diceroll.string")  (inc (int (rand 6))))})
+(defn- portal []
+  [(blocks/up 4)
+   (blocks/turn-right)
+   (blocks/forward 3)
+   (blocks/down 4)
+   (blocks/turn-left)
+   (blocks/turn-left)
+   (blocks/forward 3)])
 
-(defn sign-change
-  [ev]
-  {:msg (format (cfg/get-string @plugin "signplace.string") (first (.getLines ev)))})
+(defn- build-nether-portal! [player-name]
+  (let [ctx (blocks/setup-context player-name)
+        air (blocks/material :air)
+        obsidian (blocks/material :obsidian)]
+    (blocks/run-actions ctx air (blocks/forward 5))
+    (blocks/run-actions ctx obsidian (portal))))
+
+(defn nether-portal-command
+  [sender]
+  (let [pname (.getPlayerListName sender)]
+    (log/info "%s called nether-portal-command" pname)
+    (build-nether-portal! (.getPlayerListName sender))
+    {:msg (format (cfg/get-string @plugin "netherportal.string") pname )}))
 
 ;; Plugin lifecycle
-(defn events []
-  [(ev/event "block.sign-change" #'sign-change)])
-
 (defn start
   [plugin-instance]
   (log/info "%s" "in start npspawner")
   (reset! plugin plugin-instance)
-  (ev/register-eventlist @plugin (events))
-  (cmd/register-command @plugin "npspawner.random" #'random-command))
+  (cmd/register-command @plugin "npspawner.nether-portal" #'nether-portal-command))
 
 (defn stop
   [plugin]
   (log/info "%s" "in stop npspawner"))
-
