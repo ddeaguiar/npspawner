@@ -1,4 +1,4 @@
-BlockFace.NORTH, BlockFace.EAST, BlockFace.SOUTH, BlockFace.WEST(ns npspawner.core
+(ns npspawner.core
     (:require [cljminecraft.bukkit :as bk]
               [cljminecraft.blocks :as blocks]
               [cljminecraft.events :as ev]
@@ -23,11 +23,19 @@ BlockFace.NORTH, BlockFace.EAST, BlockFace.SOUTH, BlockFace.WEST(ns npspawner.co
    (blocks/turn-left)
    (blocks/forward 3)])
 
+(defn- facing-dir [ctx]
+  ([:north :south :east :west] (bit-and (Math/round
+                                         (/ (.getYaw (:origin ctx))
+                                            (float 90)))
+                                        0x3)))
+
 (defn- build-nether-portal! [player-name]
-  (let [air (blocks/material :air)
+  (let [ctx (blocks/setup-context player-name)
+        air (blocks/material :air)
         obsidian (blocks/material :obsidian)]
-    (-> (blocks/setup-context player-name)
-        (blocks/run-actions air (blocks/forward 5)
+    (-> ctx
+        (blocks/run-actions (blocks/turn (facing-dir ctx))
+                            air (blocks/forward 5)
                             obsidian (portal)))))
 
 (defn nether-portal-command
